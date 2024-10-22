@@ -1,8 +1,8 @@
 int valvePin1=2;
 int valvePin2=3;
 
- int water=260;
-  int dry=480;
+ int water=385;
+  int dry=780;
   int range=dry-water;//205
   int intervals=int(range/5);//41
   int eightyPct =water+intervals;//246

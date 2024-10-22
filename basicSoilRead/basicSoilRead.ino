@@ -1,5 +1,5 @@
- int water=260;
-  int dry=480;
+ int water=385;
+  int dry=780;
   int range=dry-water;//205
   int intervals=int(range/5);//41
   int eightyPct =water+intervals;//246
@@ -9,6 +9,11 @@
 
 void setup() {
   Serial.begin(9600); // open serial port, set the baud rate as 9600 bps
+  Serial.println("intervals"+intervals);
+  Serial.println("80"+eightyPct);
+  Serial.println("60"+sixtyPct);
+  Serial.println("40"+fourtyPct);
+  Serial.println("30"+twentyPct);
  
 }
 void loop() {
