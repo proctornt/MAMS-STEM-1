@@ -11,16 +11,16 @@ void loop() {
   // put your main code here, to run repeatedly:
 digitalWrite(valvePin1, HIGH);
 digitalWrite(valvePin2, LOW);
-delay(200);
+delay(800);
 digitalWrite(valvePin1, LOW);
 digitalWrite(valvePin2, LOW);
-delay(5000);
+delay(10000);
 digitalWrite(valvePin1, LOW);
 digitalWrite(valvePin2, HIGH);
-delay(200);
+delay(800);
 digitalWrite(valvePin1, LOW);
 digitalWrite(valvePin2, LOW);
-delay(5000);
+delay(10000);
 
 
 }

@@ -1,4 +1,4 @@
- int water=275;
+ int water=260;
   int dry=480;
   int range=dry-water;//205
   int intervals=int(range/5);//41
@@ -13,7 +13,7 @@ void setup() {
 }
 void loop() {
   int val;
-  val = analogRead(1); //connect sensor to Analog 0
+  val = analogRead(0); //connect sensor to Analog 0
   Serial.println(val);
   delay(2000);
   if (val <= water){
@@ -36,4 +36,5 @@ void loop() {
     Serial.println("Bewten 20 and 40%");
   else if (val>twentyPct &&  val <= dry)
     Serial.println("Less than 20%");
+  
 }
