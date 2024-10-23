@@ -29,13 +29,12 @@ pinMode(valvePin2,OUTPUT);
 
 int readSoil(){
 val = analogRead(0); 
-Serial.println(val);
-delay(2000);
 }
 void togglePump() {
 myservo.write(130);
 delay(500);
 myservo.write(180);
+Serial.println("Pump toggled");
 if (pumpStatus==1){
    pumpStatus=0;
 }else {
@@ -74,6 +73,7 @@ void waterOff(){
     togglePump();
     delay(3000);//do I need to do thus
     closeValve();
+    Serial.println("Water off"); 
     
   }
 }
@@ -81,12 +81,15 @@ void waterOff(){
 void loop() {
 readSoil();
 Serial.println(val);
+Serial.println(pumpStatus);
+Serial.println("Complete");
 if (val>sixtyPct && pumpStatus==0){
   waterOn();
 }
-else if (val<twentyPct && pumpStatus==0){
+else if (val<twentyPct && pumpStatus==1){
   waterOff();
 }
+delay(2000);
 }
 
 
