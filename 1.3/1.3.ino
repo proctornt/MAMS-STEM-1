@@ -29,7 +29,7 @@ mbed::DigitalOut otg(PB_8, 1);
 Servo myservo;  
 
 void setup() {
-  Serial.begin(9600);
+  //Serial.begin(9600);
   myservo.attach(9);  
   myservo.write(180);
   pinMode(5, OUTPUT);
@@ -37,13 +37,13 @@ void setup() {
   pinMode(valvePin2,OUTPUT);
   pinMode(PA_15, OUTPUT); //enable the USB-A port
   digitalWrite(PA_15, HIGH);
-  while (!Serial);
+  //while (!Serial);
     
     msd.connect();
 
     while (!msd.connected()) {
       msd.connect();
-      Serial.println("Trying");
+     // Serial.println("Trying");
       delay(1000);
     }
   err =  usb.mount(&msd);
@@ -52,11 +52,12 @@ void setup() {
   int dirIndex = 0;
   int res = 0;
   writeUsbStr("Start Here");
+  writeUsbSoil(00000);
   if (!rtc.begin()) {
-      Serial.println("Couldn't find RTC");
+      //Serial.println("Couldn't find RTC");
       while (1); // Halt if RTC isn't found
     }
-    Serial.println("RTC found.");
+    //Serial.println("RTC found.");
 
 }
 
@@ -64,7 +65,7 @@ void writeUsbSoil(int soil){
   FILE *f = fopen("/usb/soil.txt", "a+");
   fflush(stdout);
   err = fprintf(f, "%d\n", soil);
-  Serial.println(soil);
+  //Serial.println(soil);
   fflush(stdout);
   err = fclose(f);
 
@@ -73,7 +74,7 @@ void writeUsbStr(char* text){
   FILE *f = fopen("/usb/data.txt", "a+");
   fflush(stdout);
   err = fprintf(f, "%s\n", text);
-  Serial.println(text);
+  //Serial.println(text);
   fflush(stdout);
   err = fclose(f);
 }
@@ -81,7 +82,7 @@ void writeUsbStr(char* text){
 int readSoil(){
   
   soilVal = analogRead(0);
-  Serial.println(soilVal);
+  //Serial.println(soilVal);
   writeUsbSoil(soilVal);
 }
 void togglePump() {
@@ -106,7 +107,7 @@ void openValve(){
   valveStatus=1;
   start = rtc.now().unixtime(); 
 
-  Serial.println(start); 
+  //Serial.println(start); 
 }
 
 void closeValve(){
@@ -118,8 +119,8 @@ void closeValve(){
   digitalWrite(5,LOW);
   valveStatus=0;
   end = rtc.now().unixtime(); 
-  Serial.println(start);
-  Serial.println(end);
+  //Serial.println(start);
+  //Serial.println(end);
   uint32_t elapsed = end-start;
   
 
@@ -153,10 +154,11 @@ void waterOff(){
 
 void loop() {
   readSoil();
-  if (soilVal<targetLow){
+  //Serial.println(soilVal);
+  if (soilVal>targetHigh){
     waterOn();
   }
-  else if (soilVal>=targetHigh){
+  else if (soilVal<=targetLow){
     waterOff();
   }
   delay(2000);
