@@ -1,5 +1,12 @@
-int valvePin1=2;
-int valvePin2=3;
+#include <Servo.h>
+#include <Arduino_USBHostMbed5.h>
+#include <DigitalOut.h>
+#include <FATFileSystem.h>
+#include <Wire.h>
+#include <RTClib.h>
+
+nt valvePin1=2;//valve connections
+int valvePin2=3;//valce connection
 
 int targetLow=580;
 int targetHigh=630;
@@ -12,12 +19,7 @@ int minute;
 int second; 
 uint32_t start;
 uint32_t end;
-#include <Servo.h>
-#include <Arduino_USBHostMbed5.h>
-#include <DigitalOut.h>
-#include <FATFileSystem.h>
-#include <Wire.h>
-#include <RTClib.h>
+
 
 // Create an RTC object
 RTC_DS3231 rtc;
@@ -29,7 +31,7 @@ mbed::DigitalOut otg(PB_8, 1);
 Servo myservo;  
 
 void setup() {
-  //Serial.begin(9600);
+ // Serial.begin(9600);
   myservo.attach(9);  
   myservo.write(180);
   pinMode(5, OUTPUT);
@@ -43,7 +45,7 @@ void setup() {
 
     while (!msd.connected()) {
       msd.connect();
-     // Serial.println("Trying");
+      //Serial.println("Trying");
       delay(1000);
     }
   err =  usb.mount(&msd);
@@ -55,7 +57,9 @@ void setup() {
   writeUsbSoil(00000);
   if (!rtc.begin()) {
       //Serial.println("Couldn't find RTC");
+      rtc.begin();
       while (1); // Halt if RTC isn't found
+      
     }
     //Serial.println("RTC found.");
 

@@ -1,12 +1,11 @@
 #include <Wire.h>
-#include <RTClib.h>
+#include <RTClib.h>  // Include the RTC library for DS3231
 
-// Create an RTC object
 RTC_DS3231 rtc;
 
 void setup() {
-  // Setup Serial connection
-  Serial.begin(115200);
+  // Setup Serial connection at 9600 baud
+  Serial.begin(9600);
   delay(1000);  // Wait for Serial Monitor to open
   Serial.println("Starting RTC setup...");
 
@@ -30,23 +29,23 @@ void setup() {
 }
 
 void loop() {
+  // Get the current time from the RTC
   DateTime now = rtc.now();
-                                                   
 
-  Serial.print("Date: ");
-  Serial.print(now.month(), DEC);  
+  // Print the current time to Serial Monitor
+  Serial.print("Current date and time: ");
+  Serial.print(now.year(), DEC);
   Serial.print('/');
-  Serial.print(now.day(), DEC);    
+  Serial.print(now.month(), DEC);
   Serial.print('/');
-  Serial.print(now.year(), DEC);   
-  Serial.print(" -- ");
-
-  Serial.print("Time: ");
+  Serial.print(now.day(), DEC);
+  Serial.print(" ");
   Serial.print(now.hour(), DEC);
   Serial.print(':');
   Serial.print(now.minute(), DEC);
   Serial.print(':');
-  Serial.println(now.second(), DEC);
+  Serial.print(now.second(), DEC);
+  Serial.println();
 
-  delay(1000);
+  delay(1000);  // Wait for 1 second before printing the time again
 }
