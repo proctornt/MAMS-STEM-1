@@ -5,7 +5,7 @@
 #include <Wire.h>
 #include <RTClib.h>
 
-nt valvePin1=2;//valve connections
+int valvePin1=2;//valve connections
 int valvePin2=3;//valce connection
 
 int targetLow=580;
